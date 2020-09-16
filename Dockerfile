@@ -21,10 +21,11 @@ RUN python3 -m pip install Pillow
 ENV tflite_pkg_name https://dl.google.com/coral/python/tflite_runtime-2.1.0.post1-cp36-cp36m-linux_aarch64.whl
 RUN curl ${tflite_pkg_name}
 
-# For now, doing the following:
 #COPY tflite_runtime-2.1.0.post1-cp36-cp36m-linux_aarch64.whl /tmp
 RUN python3 -m pip install ${tflite_pkg_name}
  
 # Set up ROS environment (can leave this to the entry point?)
 CMD echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
+# (optional) Shorten the current directory when working with the container
+CMD echo "PROMPT_DIRTRIM=1" >> ~/.bashrc
 CMD source ~/.bashrc
