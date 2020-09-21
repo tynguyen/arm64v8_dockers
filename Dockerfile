@@ -45,6 +45,8 @@ RUN apt-get install -y python-catkin-tools
 # In order to run catkin build, need to disable tty emulation option 
 RUN sed -i "/55/ i has_pty=False" /usr/lib/python2.7/dist-packages/osrf_pycommon/process_utils/async_execute_process_trollius.py
 
+# Install cv-bridge which is missed from the arm64v8/ros:melodic image
+RUN apt-get install -y ros-melodic-cv-bridge
 
 # Install another packages here.....
 
