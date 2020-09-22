@@ -30,11 +30,16 @@ RUN export ROS_PYTHON_VERSION=3
 #RUN  echo "rpm [Sisyphus] http://ftp.altlinux.org/pub/distributions/ALTLinux/Sisyphus aarch64 classic" >>  /etc/apt/sources.list 
 #RUN  echo "rpm [Sisyphus] http://ftp.altlinux.org/pub/distributions/ALTLinux/Sisyphus noarch classic" >>  /etc/apt/sources.list 
 RUN apt-get update -y
-RUN apt-get install -y libgtk-3-dev libglu-dev 
+RUN apt-get install -y libgtk-3-dev libglu-dev libglu1-mesa libxi-dev libxmu-dev libglu1-mesa-dev 
 RUN python3 -m pip install -U -f https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-18.04 wxPython
 
 ADD cfg/install_skip_for_ROS.sh /tmp/install_skip.sh
-RUN ./tmp/install_skip.sh `rosdep check --from-paths src --ignore-src | grep python | sed -e "s/^apt\t//g" | sed -z "s/\n/ /g" | sed -e "s/python/python3/g"`
+
+# Comment the following line and uncomment the next line if it attempts to install python2 packages, i.e. python-yaml instead of python3-yaml
+RUN ./tmp/install_skip.sh `rosdep check --from-paths src --ignore-src | grep python | sed -e "s/^apt\t//g" | sed -z "s/\n/ /g" | sed -e "s/python/python/g"`
+# Comment the following line and uncomment the above line if it attempts to install python33 packages, i.e. python33-yaml instead of python3-yaml
+#RUN ./tmp/install_skip.sh `rosdep check --from-paths src --ignore-src | grep python | sed -e "s/^apt\t//g" | sed -z "s/\n/ /g" | sed -e "s/python/python3/g"`
+
 RUN rosdep install --from-paths src --ignore-src -y --skip-keys="`rosdep check --from-paths src --ignore-src | grep python | sed -e "s/^apt\t//g" | sed -z "s/\n/ /g"`"
 RUN find . -type f -exec sed -i 's/\/usr\/bin\/env[ ]*python/\/usr\/bin\/env python3/g' {} +
 
