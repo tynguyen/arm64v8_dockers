@@ -27,13 +27,21 @@ RUN catkin config --init -DCMAKE_BUILD_TYPE=Release --install
 RUN rosinstall_generator ros_base --rosdistro melodic --deps --tar > melodic-ros-base.rosinstall
 RUN wstool init -j8 src melodic-ros-base.rosinstall
 RUN export ROS_PYTHON_VERSION=3
-RUN apt-get install -y libgtk-3-dev
+#RUN  echo "rpm [Sisyphus] http://ftp.altlinux.org/pub/distributions/ALTLinux/Sisyphus aarch64 classic" >>  /etc/apt/sources.list 
+#RUN  echo "rpm [Sisyphus] http://ftp.altlinux.org/pub/distributions/ALTLinux/Sisyphus noarch classic" >>  /etc/apt/sources.list 
+RUN apt-get update -y
+RUN apt-get install -y libgtk-3-dev libglu-dev 
 RUN python3 -m pip install -U -f https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-18.04 wxPython
+
 ADD cfg/install_skip_for_ROS.sh /tmp/install_skip.sh
-RUN ./install_skip `rosdep check --from-paths src --ignore-src | grep python | sed -e "s/^apt\t//g" | sed -z "s/\n/ /g" | sed -e "s/python/python3/g"`
+RUN ./tmp/install_skip.sh `rosdep check --from-paths src --ignore-src | grep python | sed -e "s/^apt\t//g" | sed -z "s/\n/ /g" | sed -e "s/python/python3/g"`
 RUN rosdep install --from-paths src --ignore-src -y --skip-keys="`rosdep check --from-paths src --ignore-src | grep python | sed -e "s/^apt\t//g" | sed -z "s/\n/ /g"`"
 RUN find . -type f -exec sed -i 's/\/usr\/bin\/env[ ]*python/\/usr\/bin\/env python3/g' {} +
+
+
 RUN catkin build
+
+RUN echo "export PYTHONPATH=/usr/lib/python3/dist-packages" > ~/.bashrc
 ##############
 
 ## Install python's packages 

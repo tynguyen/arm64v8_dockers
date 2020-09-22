@@ -1,4 +1,4 @@
-i#!/bin/bash
+#!/bin/bash
 #Check whether root
 if [ $(whoami) != root ]; then
     echo You must be root or use sudo to install packages.
@@ -6,8 +6,9 @@ if [ $(whoami) != root ]; then
 fi
 
 #Call apt-get for each package
+apt-get update
 for pkg in "$@"
     do
         echo "Installing $pkg"
-        sudo apt-get -my install $pkg >> install.log
+        apt-get -my install $pkg >> install.log
     done
