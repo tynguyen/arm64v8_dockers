@@ -1,6 +1,7 @@
 FROM arm64v8/ubuntu:bionic
 
 RUN apt update  
+RUN apt install -y apt-utils 
 RUN apt install -y python3 python3-dev python3-pip build-essential
 RUN apt install -y python-pip wget curl vim man
 
