@@ -6,6 +6,8 @@
 - [x] Essential pythong packages: Pillow, Numpy, Cython
 - [x] ROS catkin_tools (needs a hack to disable pty)
 
+ROS python3 installation is based on this [tutorial](https://www.miguelalonsojr.com/blog/robotics/ros/python3/2019/08/20/ros-melodic-python-3-build.html)
+
 # Optional packages
 - [x] Opencv-python: uncomment the corresponding line in Dockerfile to install
 
