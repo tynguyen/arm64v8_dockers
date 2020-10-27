@@ -2,8 +2,8 @@ FROM arm64v8/ros:melodic
 
 ARG ROS_DISTRO=melodic
 
-RUN apt update  
-RUN apt install -y python3-pip python-pip wget curl vim man tmux
+RUN apt-get update  
+RUN apt-get install -y python3-pip python-pip wget curl vim man tmux
 
 # Upgrade pip to install opencv python
 RUN python3 -m pip install --upgrade pip
@@ -34,30 +34,30 @@ RUN git clone https://github.com/VundleVim/Vundle.vim.git /root/.vim/bundle/Vund
 
  
 # Set up ROS environment (can leave this to the entry point?)
-RUN echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
+RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
 
 # (Optional) Install catkin_tools
 #RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -sc` main" > /etc/apt/sources.list.d/ros-latest.list'
 #RUN wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
 #RUN rm /etc/apt/sources.list.d/ros1-latest.list
-RUN apt update
+RUN apt-get update
 # Make sure permissions of /tmp is set appropriately
 RUN chmod 1777 /tmp
 RUN apt-get install -y python-catkin-tools
 # In order to run catkin build, need to disable tty emulation option 
 RUN sed -i "/55/ i has_pty=False" /usr/lib/python2.7/dist-packages/osrf_pycommon/process_utils/async_execute_process_trollius.py
 
-# Install cv-bridge which is missed from the arm64v8/ros:melodic image
-RUN apt-get install -y ros-melodic-cv-bridge
+# Install cv-bridge which is missed from the arm64v8/ros:$ROS_DISTRO image
+RUN apt-get install -y ros-$ROS_DISTRO-cv-bridge
 
 # Install another packages here.....
 
 # Install ROS package dependencies
-RUN apt install -y libeigen3-dev libsuitesparse-dev protobuf-compiler libnlopt-dev libyaml-cpp-dev
+RUN apt-get install -y libeigen3-dev libsuitesparse-dev protobuf-compiler libnlopt-dev libyaml-cpp-dev
 
 # Install additional ROS packages
-RUN apt install -y ros-$ROS_DISTRO-pcl-ros
-RUN apt install -y ros-$ROS_DISTRO-eigen-conversions ros-$ROS_DISTRO-tf2-eigen ros-$ROS_DISTRO-tf2-ros ros-$ROS_DISTRO-tf2-geometry-msgs ros-$ROS_DISTRO-tf2-tools ros-$ROS_DISTRO-tf-conversions ros-$ROS_DISTRO-octomap-ros ros-$ROS_DISTRO-octomap ros-$ROS_DISTRO-octomap-ros ros-$ROS_DISTRO-sophus ros-$ROS_DISTRO-angles ros-$ROS_DISTRO-cv-bridge ros-$ROS_DISTRO-image-transport
+RUN apt-get install -y ros-$ROS_DISTRO-pcl-ros
+RUN apt-get install -y ros-$ROS_DISTRO-eigen-conversions ros-$ROS_DISTRO-tf2-eigen ros-$ROS_DISTRO-tf2-ros ros-$ROS_DISTRO-tf2-geometry-msgs ros-$ROS_DISTRO-tf2-tools ros-$ROS_DISTRO-tf-conversions ros-$ROS_DISTRO-octomap-ros ros-$ROS_DISTRO-octomap ros-$ROS_DISTRO-octomap-ros ros-$ROS_DISTRO-sophus ros-$ROS_DISTRO-angles ros-$ROS_DISTRO-cv-bridge ros-$ROS_DISTRO-image-transport
 
 # End installing packages .... 
 
@@ -68,7 +68,7 @@ CMD ln -sf /opt/ptmx /dev/ptmx
 CMD echo "PROMPT_DIRTRIM=1" >> ~/.bashrc
 
 # Source ros each time a container is run
-CMD echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
+CMD echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
 
 CMD source ~/.bashrc
 
