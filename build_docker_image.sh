@@ -1,1 +1,1 @@
-docker build -t arm64v8/melodic:voxl_melodic .
+docker build -t aarm64v8/melodic:bionic/melodic .
