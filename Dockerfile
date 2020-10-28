@@ -17,6 +17,10 @@ RUN python3 -m pip install scikit-build cython
 RUN apt-get install -y libjpeg-dev zlib1g-dev
 RUN python3 -m pip install Pillow
 
+#Install Xbee python pacakges
+python3 -m pip install digi-xbee
+python3 -m pip install pyserial
+
 # Install tflite
 # Wget to download the wheel file, make sure download the correct file which is compatible with the python's version
 #https://www.tensorflow.org/lite/guide/python. For example: 
@@ -58,6 +62,9 @@ RUN apt-get install -y libeigen3-dev libsuitesparse-dev protobuf-compiler libnlo
 # Install additional ROS packages
 RUN apt-get install -y ros-$ROS_DISTRO-pcl-ros
 RUN apt-get install -y ros-$ROS_DISTRO-eigen-conversions ros-$ROS_DISTRO-tf2-eigen ros-$ROS_DISTRO-tf2-ros ros-$ROS_DISTRO-tf2-geometry-msgs ros-$ROS_DISTRO-tf2-tools ros-$ROS_DISTRO-tf-conversions ros-$ROS_DISTRO-octomap-ros ros-$ROS_DISTRO-octomap ros-$ROS_DISTRO-octomap-ros ros-$ROS_DISTRO-sophus ros-$ROS_DISTRO-angles ros-$ROS_DISTRO-cv-bridge ros-$ROS_DISTRO-image-transport
+
+#Install throughput/signal packages
+RUN apt-get install -y iperf3 traceroute wireless-tools
 
 # End installing packages .... 
 
