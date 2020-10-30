@@ -18,9 +18,9 @@ RUN apt-get install -y libjpeg-dev zlib1g-dev
 RUN python3 -m pip install Pillow
 
 #Install Xbee python pacakges
-python3 -m pip install digi-xbee
-python3 -m pip install pyserial
-python3 -m pip install rospkg
+RUN python3 -m pip install digi-xbee
+RUN python3 -m pip install pyserial
+RUN python3 -m pip install rospkg
 
 # Install tflite
 # Wget to download the wheel file, make sure download the correct file which is compatible with the python's version
