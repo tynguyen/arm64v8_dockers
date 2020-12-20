@@ -10,6 +10,14 @@
 - [x] Opencv-python: uncomment the corresponding line in Dockerfile to install
 
 # Prerequisites 
+- [x] Install Docker CE
+- [x] Install qemu tools
+
+To install Docker CE
+```
+bash install_docker_ce.sh
+``` 
+To install qemu tools
 ``` 
 sudo apt install binfmt-support
 sudo apt install qemu-user-static android-tools-adb android-tools-fastboot
