@@ -36,7 +36,7 @@ docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
 ```
 
 ```
-bash build_docker.sh
+bash build_docker_image.sh
 ```
 
 ---

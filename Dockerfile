@@ -3,7 +3,7 @@ FROM arm64v8/ros:melodic
 ARG ROS_DISTRO=melodic
 
 RUN apt-get update  
-RUN apt-get install -y python3-pip python-pip wget curl vim man tmux
+RUN apt-get install -y python3-pip python-pip wget curl vim man tmux software-properties-common
 
 # Upgrade pip to install opencv python
 RUN python3 -m pip install --upgrade pip
@@ -61,8 +61,8 @@ RUN apt-get install -y ros-$ROS_DISTRO-cv-bridge
 RUN apt-get install -y libeigen3-dev libsuitesparse-dev protobuf-compiler libnlopt-dev libyaml-cpp-dev
 
 # Install additional ROS packages
-RUN apt-get install -y ros-$ROS_DISTRO-pcl-ros
-RUN apt-get install -y ros-$ROS_DISTRO-eigen-conversions ros-$ROS_DISTRO-tf2-eigen ros-$ROS_DISTRO-tf2-ros ros-$ROS_DISTRO-tf2-geometry-msgs ros-$ROS_DISTRO-tf2-tools ros-$ROS_DISTRO-tf-conversions ros-$ROS_DISTRO-octomap-ros ros-$ROS_DISTRO-octomap ros-$ROS_DISTRO-octomap-ros ros-$ROS_DISTRO-sophus ros-$ROS_DISTRO-angles ros-$ROS_DISTRO-cv-bridge ros-$ROS_DISTRO-image-transport
+RUN apt-get install -y ros-$ROS_DISTRO-pcl-ros ros-$ROS_DISTRO-laser_assembler
+RUN apt-get install -y ros-$ROS_DISTRO-eigen-conversions ros-$ROS_DISTRO-tf2-eigen ros-$ROS_DISTRO-tf2-ros ros-$ROS_DISTRO-tf2-geometry-msgs ros-$ROS_DISTRO-tf2-tools ros-$ROS_DISTRO-tf-conversions ros-$ROS_DISTRO-octomap-ros ros-$ROS_DISTRO-octomap ros-$ROS_DISTRO-octomap-ros ros-$ROS_DISTRO-octomap-server ros-$ROS_DISTRO-sophus ros-$ROS_DISTRO-angles ros-$ROS_DISTRO-cv-bridge ros-$ROS_DISTRO-image-transport ros-$ROS_DISTRO-image-proc ros-$ROS_DISTRO-depth-image-proc ros-$ROS_DISTRO-multimaster-fkie ros-$ROS_DISTRO-image-geometry ros-$ROS_DISTRO-vision-msgs
 
 #Install throughput/signal packages
 RUN apt-get install -y iperf3 traceroute wireless-tools
