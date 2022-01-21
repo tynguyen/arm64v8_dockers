@@ -61,7 +61,7 @@ RUN apt-get install -y ros-$ROS_DISTRO-cv-bridge
 RUN apt-get install -y libeigen3-dev libsuitesparse-dev protobuf-compiler libnlopt-dev libyaml-cpp-dev
 
 # Install additional ROS packages
-RUN apt-get install -y ros-$ROS_DISTRO-pcl-ros ros-$ROS_DISTRO-laser_assembler
+RUN apt-get install -y ros-$ROS_DISTRO-pcl-ros ros-$ROS_DISTRO-laser-assembler
 RUN apt-get install -y ros-$ROS_DISTRO-eigen-conversions ros-$ROS_DISTRO-tf2-eigen ros-$ROS_DISTRO-tf2-ros ros-$ROS_DISTRO-tf2-geometry-msgs ros-$ROS_DISTRO-tf2-tools ros-$ROS_DISTRO-tf-conversions ros-$ROS_DISTRO-octomap-ros ros-$ROS_DISTRO-octomap ros-$ROS_DISTRO-octomap-ros ros-$ROS_DISTRO-octomap-server ros-$ROS_DISTRO-sophus ros-$ROS_DISTRO-angles ros-$ROS_DISTRO-cv-bridge ros-$ROS_DISTRO-image-transport ros-$ROS_DISTRO-image-proc ros-$ROS_DISTRO-depth-image-proc ros-$ROS_DISTRO-multimaster-fkie ros-$ROS_DISTRO-image-geometry ros-$ROS_DISTRO-vision-msgs
 
 #Install throughput/signal packages
