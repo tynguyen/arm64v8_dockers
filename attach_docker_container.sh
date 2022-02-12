@@ -1,2 +1,2 @@
-docker exec -it voxl_melodic_docker /bin/bash
+docker exec -it voxl_noetic_docker /bin/bash
 

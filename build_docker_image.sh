@@ -1,1 +1,1 @@
-docker build -t arm64v8/melodic:bionic-melodic .
+docker build -t arm64v8/noetic:focal-noetic .

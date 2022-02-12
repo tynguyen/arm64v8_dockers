@@ -1,9 +1,10 @@
-FROM arm64v8/ros:melodic
+FROM arm64v8/ros:noetic
 
-ARG ROS_DISTRO=melodic
+ARG ROS_DISTRO=noetic
 
+ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update  
-RUN apt-get install -y python3-pip python-pip wget curl vim man tmux software-properties-common
+RUN apt-get install -y python3-pip wget man tmux software-properties-common git
 
 # Upgrade pip to install opencv python
 RUN python3 -m pip install --upgrade pip
@@ -29,7 +30,7 @@ ARG tflite_pkg_name="https://dl.google.com/coral/python/tflite_runtime-2.1.0.pos
 RUN wget ${tflite_pkg_name}
 
 #COPY tflite_runtime-2.1.0.post1-cp36-cp36m-linux_aarch64.whl /tmp
-RUN python3 -m pip install ${tflite_pkg_name}
+#RUN python3 -m pip install ${tflite_pkg_name}
 
 
 # (Optional) Configure Vim
@@ -48,9 +49,9 @@ RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
 RUN apt-get update
 # Make sure permissions of /tmp is set appropriately
 RUN chmod 1777 /tmp
-RUN apt-get install -y python-catkin-tools
+RUN apt-get install -y python3-catkin-tools
 # In order to run catkin build, need to disable tty emulation option 
-RUN sed -i "/55/ i has_pty=False" /usr/lib/python2.7/dist-packages/osrf_pycommon/process_utils/async_execute_process_trollius.py
+#RUN sed -i "/55/ i has_pty=False" /usr/lib/python2.7/dist-packages/osrf_pycommon/process_utils/async_execute_process_trollius.py
 
 # Install cv-bridge which is missed from the arm64v8/ros:$ROS_DISTRO image
 RUN apt-get install -y ros-$ROS_DISTRO-cv-bridge
@@ -58,11 +59,11 @@ RUN apt-get install -y ros-$ROS_DISTRO-cv-bridge
 # Install another packages here.....
 
 # Install ROS package dependencies
-RUN apt-get install -y libeigen3-dev libsuitesparse-dev protobuf-compiler libnlopt-dev libyaml-cpp-dev
+RUN apt-get install -y libeigen3-dev libsuitesparse-dev protobuf-compiler libnlopt-dev libyaml-cpp-dev libmnl-dev
 
 # Install additional ROS packages
 RUN apt-get install -y ros-$ROS_DISTRO-pcl-ros ros-$ROS_DISTRO-laser-assembler
-RUN apt-get install -y ros-$ROS_DISTRO-eigen-conversions ros-$ROS_DISTRO-tf2-eigen ros-$ROS_DISTRO-tf2-ros ros-$ROS_DISTRO-tf2-geometry-msgs ros-$ROS_DISTRO-tf2-tools ros-$ROS_DISTRO-tf-conversions ros-$ROS_DISTRO-octomap-ros ros-$ROS_DISTRO-octomap ros-$ROS_DISTRO-octomap-ros ros-$ROS_DISTRO-octomap-server ros-$ROS_DISTRO-sophus ros-$ROS_DISTRO-angles ros-$ROS_DISTRO-cv-bridge ros-$ROS_DISTRO-image-transport ros-$ROS_DISTRO-image-proc ros-$ROS_DISTRO-depth-image-proc ros-$ROS_DISTRO-multimaster-fkie ros-$ROS_DISTRO-image-geometry ros-$ROS_DISTRO-vision-msgs
+RUN apt-get install -y ros-$ROS_DISTRO-eigen-conversions ros-$ROS_DISTRO-tf2-eigen ros-$ROS_DISTRO-tf2-ros ros-$ROS_DISTRO-tf2-geometry-msgs ros-$ROS_DISTRO-tf2-tools ros-$ROS_DISTRO-tf-conversions ros-$ROS_DISTRO-octomap-ros ros-$ROS_DISTRO-octomap ros-$ROS_DISTRO-octomap-ros ros-$ROS_DISTRO-octomap-server ros-$ROS_DISTRO-sophus ros-$ROS_DISTRO-angles ros-$ROS_DISTRO-cv-bridge ros-$ROS_DISTRO-image-transport ros-$ROS_DISTRO-image-proc ros-$ROS_DISTRO-depth-image-proc ros-$ROS_DISTRO-image-geometry ros-$ROS_DISTRO-vision-msgs ros-$ROS_DISTRO-fkie-multimaster
 
 #Install throughput/signal packages
 RUN apt-get install -y iperf3 traceroute wireless-tools
